@@ -319,7 +319,8 @@ x <- cnetplot(KEGG_GSEA2, categorySize="pvalue", foldChange=Book1_gsea, showCate
 x
 
 x2 <- cnetplot(KEGG_GSEA2, categorySize="pvalue", foldChange=Book1_gsea, showCategory = 5, colorEdge = TRUE, layout = 'gem', cex_label_category = 0.5, cex_label_gene = 0.5)
-x2 <- x2 + ggtitle("KEGG Category network")
+x2 <- x2 + ggtitle("KEGG Category network")+
+  theme(plot.title = element_text(size=15))
 x2
 
 tiff("./KEGG_cnetplot_5_cat.tiff", units = "in", height = 10, width = 10, res = 300)
@@ -331,7 +332,8 @@ GO_GSEA2 <- setReadable(GO_GSEA, OrgDb = org.Hs.eg.db, keyType = 'ENTREZID')
 View(head(GO_GSEA2))
 
 GO2 <- cnetplot(GO_GSEA2, categorySize="pvalue", foldChange=Book1_gsea, showCategory = 5, colorEdge = TRUE, layout = 'gem', cex_label_category = 0.8, cex_label_gene = 0.8)
-GO2 <- GO2 + ggtitle("GO Category network")
+GO2 <- GO2 + ggtitle("GO Category network")+
+  theme(plot.title = element_text(size=15))
 GO2
 
 tiff("./GO_cnetplot_5_cat.tiff", units = "in", height = 15, width = 15, res = 300)
