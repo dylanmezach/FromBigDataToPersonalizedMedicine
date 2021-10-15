@@ -53,6 +53,7 @@ PCA_group <- ggplot(pcPlotData, aes(x=PC1 , y=PC2 , color=sample))+
   scale_color_nejm()+
   theme_bw()+
   theme(legend.position = "bottom")+
+  ggtitle("Variation between groups")+
   guides(col = guide_legend(ncol = 8))
 
 PCA_stim <- ggplot(pcPlotData, aes(x=PC1 , y=PC2 , color=stimulation))+
@@ -62,6 +63,7 @@ PCA_stim <- ggplot(pcPlotData, aes(x=PC1 , y=PC2 , color=stimulation))+
   scale_color_nejm()+
   theme_bw()+
   theme(legend.position = "bottom")+
+  ggtitle("Variation between stimulations")+
   guides(col = guide_legend(ncol = 8))
 
 
@@ -143,7 +145,7 @@ ggplot(genemap, aes(x=log2FoldChange, y= -log10(padj)))+
   geom_hline(yintercept = 0, lwd=1, alpha= 0.6)+
   geom_vline(xintercept = 0, lwd=1, alpha= 0.6)+
   scale_color_d3()+
-  ggtitle("Stim2_4")+
+  ggtitle("DE between redBDO and redBDO+IL-15+IL-21+IFNb")+
   theme_bw()
 dev.off()
 
@@ -179,7 +181,7 @@ target <- merge(DE_results, genemap, by.x = 0, by.y = "ensembl_gene_id")
 target$chromosome_name <- ChrNumeric(target$chromosome_name)
 target <- target[complete.cases(target),]
 # create manhatten plot with highlighting genes that were enriched in the TFBSA and write to Gdrive
-tiff("G:/Mijn Drive/FromBigDataToPersonalizedMedicine/Results/ManhattanPlot.tiff", units = 'in', height = 5, width = 10, res = 300 )
+tiff("G:/Mijn Drive/FromBigDataToPersonalizedMedicine/Results/ManhattanPlot.tiff", units = 'in', height = 5, width = 11, res = 300 )
 manhattan(target,
           chr = "chromosome_name",
           bp = 'start_position', 
@@ -188,7 +190,8 @@ manhattan(target,
           suggestiveline = F, 
           genomewideline = F,
           highlight = GOI,
-          annotatePval = T)
+          annotatePval = T,
+          main = "DE genes arranged on chromosomal position")
 dev.off()
 
 
